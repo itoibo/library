@@ -42,7 +42,7 @@
 			
 		?>
 		
-		<h1>Book</h1>
+		<h1>Author</h1>
 		
 		<table border='1'>
 			<tr>

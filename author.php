@@ -8,41 +8,32 @@
 		<?php
 			
 			include_once('common/setup.php');
+			include_once('common/database.php');
 			
 			if(!empty($_GET['id'])) {
 				$id = $_GET['id'];
 			} else {
-				$id = 4;
+				http_response_code(400);
+                //echo "Missing author ID.";
+                exit("Missing author ID.");
 			}
 			
-			$mysqlServer = "localhost";
-			$database = "library";
-			$mysqlUser = "libraryadmin";
-			$mysqlPassword = "libraryadmin";
+			$resultArray = findAuthorById($id);
 			
-			$connexionObject = new PDO("mysql:host=$mysqlServer;dbname=$database", $mysqlUser, $mysqlPassword);
+			if ($resultArray === null) {
+                http_response_code(404);
+				//echo "This author does not exist.";
+                exit("This author does not exist.");
+            }
 			
-			$queryObject = $connexionObject->prepare("
-				SELECT
-					book.id,
-					book.title,
-					book.description,
-					book.author_id,
-					author.first_name,
-					author.last_name
-				FROM
-					book
-				LEFT JOIN
-					author ON author.id = book.author_id
-				WHERE
-					author.id = $id;
-				;
-			");
 			
-			$queryObject->execute();
+			$resultsArray = findBooksByAuthorId($id);
 			
-			$resultsArray = $queryObject->fetchAll();
-			
+			if ($resultsArray === null) {
+                http_response_code(404);
+				//echo "This author does not exist.";
+                exit("No books by this author.");
+            }
 		?>
 		
 		<h1>Author</h1>
@@ -70,27 +61,7 @@
 			<?php } ?>
 		</table>
 		<br>
-		<a href="/" target="new">See All Authors</a>
-	
-<?php
-/*
-3 things:
-- you make a book.php page
-this page will show the title, description, and author of a book
-the url will be : book.php?id=15
-so the id of the book will be in the url
-
-then:
-- you do the same with authors. you make a author.php file
-url of a webpage will be: author.php?id=12
-on this web page, you will show the first name, last name, and list of books of this author
-and finally:
-
-- you make links. On the authors-books.php, when , i click on an author last name, i should land on the author page of this autor. Same with books
-that's it :_
-
-*/
-?>
+		<a href="/">See All Authors</a>
 
 	</body>
 </html>

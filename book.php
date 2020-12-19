@@ -14,8 +14,8 @@
                 $id = $_GET['id'];
             } else {
                 http_response_code(400);
-                echo "Missing book ID.";
-                exit;
+                //echo "Missing book ID.";
+                exit("Missing book ID.");
             }
 			
 			$resultArray = findBook($id);
@@ -52,26 +52,6 @@
 		</table>
 		<br>
 		<a href="/">See All Books</a>
-	
-<?php
-/*
-3 things:
-- you make a book.php page
-this page will show the title, description, and author of a book
-the url will be : book.php?id=15
-so the id of the book will be in the url
-
-then:
-- you do the same with authors. you make a author.php file
-url of a webpage will be: author.php?id=12
-on this web page, you will show the first name, last name, and list of books of this author
-and finally:
-
-- you make links. On the authors-books.php, when , i click on an author last name, i should land on the author page of this autor. Same with books
-that's it :_
-
-*/
-?>
 
 	</body>
 </html>

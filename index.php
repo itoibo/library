@@ -14,6 +14,7 @@
     <?php
 		
 		include_once('common/setup.php');
+		include_once('common/database.php');
 		
 		if (!empty($_GET['page'])) {
 			$page = $_GET['page'];
@@ -22,39 +23,15 @@
 		}
 		//echo $page;
 		
+		$total = countAllBooks();
 		
-		$queryCountObject = $connexionObject->prepare("SELECT COUNT(*) FROM book;");
-        $queryCountObject->execute();
-        $countResultsArray = $queryCountObject->fetchAll();
-        $total = $countResultsArray[0]['COUNT(*)'];
-        //echo $total;
 		$nbrPages = ceil($total / 10);
 		
 		$offset = ($page - 1) * 10;
-		$queryObject = $connexionObject->prepare("
-            SELECT
-                book.id,
-                book.title,
-                book.description,
-                author.first_name,
-                author.last_name,
-				book.author_id
-            FROM
-                book
-            LEFT JOIN
-                author ON author.id = book.author_id
-			
-			LIMIT 
-				10
-			OFFSET
-				$offset
-            ;
-        ");//just contains a string now.
 		
-		$queryObject->execute();//now contains the string plus all the data we requested.
+		$numBooks = 10;
 		
-		$resultsArray = $queryObject->fetchAll();
-		
+		$resultsArray = findNBooks($numBooks, $offset);
 		
     ?>
     
@@ -105,11 +82,6 @@
 	<pre>
 		<?php /*print_r($resultsArray);*/ ?>
 	</pre>
-	
-	
-	
-	
-	
 	
   </body>
 </html>

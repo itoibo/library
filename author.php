@@ -6,6 +6,9 @@
 	</head>
 	<body>
 		<?php
+			
+			include_once('common/setup.php');
+			
 			if(!empty($_GET['id'])) {
 				$id = $_GET['id'];
 			} else {
@@ -67,7 +70,7 @@
 			<?php } ?>
 		</table>
 		<br>
-		<a href="/authors-books.php" target="new">See All Authors</a>
+		<a href="/" target="new">See All Authors</a>
 	
 <?php
 /*

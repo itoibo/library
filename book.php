@@ -6,42 +6,25 @@
 	</head>
 	<body>
 		<?php
+			
+			include_once('common/setup.php');
+			include_once('common/database.php');
+			
 			if(!empty($_GET['id'])) {
-				$id = $_GET['id'];
-			} else {
-				$id = 4;
-			}
+                $id = $_GET['id'];
+            } else {
+                http_response_code(400);
+                echo "Missing book ID.";
+                exit;
+            }
 			
-			$mysqlServer = "localhost";
-			$database = "library";
-			$mysqlUser = "libraryadmin";
-			$mysqlPassword = "libraryadmin";
+			$resultArray = findBook($id);
 			
-			$connexionObject = new PDO("mysql:host=$mysqlServer;dbname=$database", $mysqlUser, $mysqlPassword);
-			
-			$queryObject = $connexionObject->prepare("
-				SELECT
-					book.id,
-					book.title,
-					book.description,
-					book.author_id,
-					author.first_name,
-					author.last_name
-				FROM
-					book
-				LEFT JOIN
-					author ON author.id = book.author_id
-				WHERE
-					book.id = $id;
-				;
-			");
-			
-			$queryObject->execute();
-			
-			$resultsArray = $queryObject->fetchAll();
-			
-			$resultArray = $resultsArray[0];//Get the first row.
-		
+			if ($resultArray === null) {
+                http_response_code(404);
+				echo "This book does not exist.";
+                exit;
+            }
 		?>
 		
 		<h1>Book</h1>
@@ -68,7 +51,7 @@
 			</tr>
 		</table>
 		<br>
-		<a href="/authors-books.php" target="new">See All Books</a>
+		<a href="/">See All Books</a>
 	
 <?php
 /*

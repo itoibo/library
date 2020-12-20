@@ -31,7 +31,7 @@
 		
 		$numBooks = 10;
 		
-		$resultsArray = findNBooks($numBooks, $offset);
+		$booksArray = findNBooks($numBooks, $offset);
 		
     ?>
     
@@ -46,23 +46,23 @@
             <th>Actions</th>
         </tr>
 		
-		<?php foreach ($resultsArray as $resultArray) { ?>
+		<?php foreach ($booksArray as $bookArray) { ?>
             <tr>
                 <td>
-                    <?php echo $resultArray['first_name']; ?>
+                    <?php echo $bookArray['author_first_name']; ?>
                 </td>
 				<td>
-					<a href="/author.php?id=<?php echo $resultArray['author_id']; ?>">
-						<?php echo $resultArray['last_name']; ?>
+					<a href="/author.php?id=<?php echo $bookArray['author_id']; ?>">
+						<?php echo $bookArray['author_last_name']; ?>
 					</a>
                 </td>
 				<td>
-					<a href="/book.php?id=<?php echo $resultArray['id']; ?>">
-						<?php echo $resultArray['title']; ?>
+					<a href="/book.php?id=<?php echo $bookArray['id']; ?>">
+						<?php echo $bookArray['title']; ?>
 					</a>
                 </td>
 				<td>
-                    <?php echo $resultArray['description']; ?>
+                    <?php echo $bookArray['description']; ?>
                 </td>
 				<td>
                     Coming soon
@@ -80,7 +80,7 @@
 	
 	
 	<pre>
-		<?php /*print_r($resultsArray);*/ ?>
+		<?php /*print_r($booksArray);*/ ?>
 	</pre>
 	
   </body>

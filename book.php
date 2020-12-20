@@ -18,9 +18,9 @@
                 exit("Missing book ID.");
             }
 			
-			$resultArray = findBook($id);
+			$bookArray = findBookById($id);
 			
-			if ($resultArray === null) {
+			if ($bookArray === null) {
                 http_response_code(404);
 				echo "This book does not exist.";
                 exit;
@@ -38,14 +38,14 @@
 			
 			<tr>
 				<td>
-					<?php echo $resultArray['title']; ?>
+					<?php echo $bookArray['title']; ?>
 				</td>
 				<td>
-					<?php echo $resultArray['description']; ?>
+					<?php echo $bookArray['description']; ?>
 				</td>
 				<td>
-					<a href="/author.php?id=<?php echo $resultArray['author_id']; ?>">
-					<?php echo $resultArray['last_name']; ?>, <?php echo $resultArray['first_name']; ?>
+					<a href="/author.php?id=<?php echo $bookArray['author_id']; ?>">
+					<?php echo $bookArray['author_last_name']; ?>, <?php echo $bookArray['author_first_name']; ?>
 					</a>
 				</td>
 			</tr>

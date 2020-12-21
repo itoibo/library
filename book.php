@@ -1,13 +1,11 @@
 <?php
 	
-	include_once('common/setup.php');
-	include_once('common/database.php');
+	include_once('common/includes.php');
 	
 	if(!empty($_GET['id'])) {
 		$id = $_GET['id'];
 	} else {
 		http_response_code(400);
-		//echo "Missing book ID.";
 		exit("Missing book ID.");
 	}
 	
@@ -15,7 +13,7 @@
 	
 	if ($bookArray === null) {
 		http_response_code(404);
-		echo "This book does not exist.";
+		escape("This book does not exist.");
 		exit;
 	}
 ?>
@@ -39,14 +37,14 @@
 			
 			<tr>
 				<td>
-					<?php echo $bookArray['title']; ?>
+					<?php escape($bookArray['title']); ?>
 				</td>
 				<td>
-					<?php echo $bookArray['description']; ?>
+					<?php escape($bookArray['description']); ?>
 				</td>
 				<td>
-					<a href="/author.php?id=<?php echo $bookArray['author_id']; ?>">
-					<?php echo $bookArray['author_last_name']; ?>, <?php echo $bookArray['author_first_name']; ?>
+					<a href="/author.php?id=<?php escape($bookArray['author_id']); ?>">
+					<?php escape($bookArray['author_last_name']); ?>, <?php escape($bookArray['author_first_name']); ?>
 					</a>
 				</td>
 			</tr>

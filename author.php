@@ -1,13 +1,12 @@
 <?php
 	
-	include_once('common/setup.php');
-	include_once('common/database.php');
+	include_once('common/includes.php');
 	
 	if(!empty($_GET['id'])) {
 		$id = $_GET['id'];
 	} else {
 		http_response_code(400);
-		//echo "Missing author ID.";
+		//escape("Missing author ID.");
 		exit("Missing author ID.");
 	}
 	
@@ -36,9 +35,9 @@
 		<h1>Author</h1>
 		
 		<p>
-            <strong>First name:</strong> <?php echo $authorArray['first_name']; ?>
+            <strong>First name:</strong> <?php escape($authorArray['first_name']); ?>
             <br>
-            <strong>Last name:</strong> <?php echo $authorArray['last_name']; ?>
+            <strong>Last name:</strong> <?php escape($authorArray['last_name']); ?>
         </p>
 		
 		
@@ -50,12 +49,12 @@
 			<?php foreach ($booksArray as $bookArray) { ?>
 				<tr>
 					<td>
-						<a href="/book.php?id=<?php echo $bookArray['id']; ?>">
-						<?php echo $bookArray['title']; ?>
+						<a href="/book.php?id=<?php escape($bookArray['id']); ?>">
+						<?php escape($bookArray['title']); ?>
 						</a>
 					</td>
 					<td>
-						<?php echo $bookArray['description']; ?>
+						<?php escape($bookArray['description']); ?>
 					</td>
 				</tr>
 			<?php } ?>

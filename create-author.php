@@ -1,7 +1,6 @@
 <?php
 
-	include_once('common/setup.php');
-	include_once('common/database.php');
+	include_once('common/includes.php');
 	
 	$formDataArray = [
 		'firstName' => '',
@@ -11,7 +10,7 @@
 	$errorsArray = [];
 	
 	$method = $_SERVER['REQUEST_METHOD'];
-	//echo $method;
+	//escape($method);
 	if($method === 'POST') {
 		$formDataArray = [
 		'firstName' => $_POST['firstName'],
@@ -19,18 +18,18 @@
 		];
 		
 		if (empty($formDataArray['firstName'])) {
-			$errorsArray[] = "First name should not be empty.";//"$arrName[] =" is add to array.
+			$errorsArray[] = "First name should <strong>not</strong> be empty.";//"$arrName[] =" is add to array.
 		}
 		
 		if (empty($formDataArray['lastName'])) {
-			$errorsArray[] = "Last name should not be empty.";
+			$errorsArray[] = "Last name should <strong>not</strong> be empty.";
 		}
 		
 		if (empty($errorsArray)) {
 			$id = saveAuthor($formDataArray['firstName'], $formDataArray['lastName']);
 			$redirectUrl = "/author.php?id=$id";
 			header("Location: $redirectUrl");
-			//echo "The author has been successfully saved!";
+			//escape("The author has been successfully saved!");
 		}
 	}
 	
@@ -51,7 +50,9 @@
 		<ul>
 			<?php foreach ($errorsArray as $error) { ?>
 				<li>
-					<?php echo $error; ?>
+					<?php 
+						echo $error;//Contains html. Do not escape. 
+					?>
 				</li>
 			<?php } ?>
 		</ul>
@@ -63,7 +64,7 @@
 						<label for="firstName">First name:</label>
 					</td>
 					<td>
-						<input type="text" id="firstName" name="firstName" value="<?php echo $formDataArray['firstName'] ?>" />
+						<input type="text" id="firstName" name="firstName" value="<?php echo $formDataArray['firstName']; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -71,7 +72,7 @@
 						<label for="lastName">Last name:</label>
 					</td>
 					<td>
-						<input type="text" id="lastName" name="lastName" value="<?php echo $formDataArray['lastName'] ?>"/>
+						<input type="text" id="lastName" name="lastName" value="<?php echo $formDataArray['lastName']; ?>"/>
 					</td>
 				</tr>
 				<tr>
@@ -81,7 +82,6 @@
 				</tr>
 			</table>
 		</form>
-	
 	</body>
 </html>
     

@@ -1,14 +1,13 @@
 <?php
 	
-	include_once('common/setup.php');
-	include_once('common/database.php');
+	include_once('common/includes.php');
 	
 	if (!empty($_GET['page'])) {
 		$page = $_GET['page'];
 	} else {
 		$page = 1;
 	}
-	//echo $page;
+	//escape($page);
 	
 	$total = countAllBooks();
 	
@@ -50,20 +49,20 @@
 		<?php foreach ($booksArray as $bookArray) { ?>
             <tr>
                 <td>
-                    <?php echo $bookArray['author_first_name']; ?>
+                    <?php escape($bookArray['author_first_name']); ?>
                 </td>
 				<td>
-					<a href="/author.php?id=<?php echo $bookArray['author_id']; ?>">
-						<?php echo $bookArray['author_last_name']; ?>
+					<a href="/author.php?id=<?php escape($bookArray['author_id']); ?>">
+						<?php escape($bookArray['author_last_name']); ?>
 					</a>
                 </td>
 				<td>
-					<a href="/book.php?id=<?php echo $bookArray['id']; ?>">
-						<?php echo $bookArray['title']; ?>
+					<a href="/book.php?id=<?php escape($bookArray['id']); ?>">
+						<?php escape($bookArray['title']); ?>
 					</a>
                 </td>
 				<td>
-                    <?php echo $bookArray['description']; ?>
+                    <?php escape($bookArray['description']); ?>
                 </td>
 				<td>
                     Coming soon
@@ -76,7 +75,7 @@
 	
 	
 	<?php for ($i = 1; $i <= $nbrPages; $i++) { ?>
-        <a href = "/?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+        <a href = "/?page=<?php escape($i); ?>"><?php escape($i); ?></a>
     <?php } ?>
 	
 	

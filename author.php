@@ -1,3 +1,31 @@
+<?php
+	
+	include_once('common/setup.php');
+	include_once('common/database.php');
+	
+	if(!empty($_GET['id'])) {
+		$id = $_GET['id'];
+	} else {
+		http_response_code(400);
+		//echo "Missing author ID.";
+		exit("Missing author ID.");
+	}
+	
+	$authorArray = findAuthorById($id);
+	
+	if ($authorArray === null) {
+		http_response_code(404);
+		exit("This author does not exist.");
+	}
+	
+	
+	$booksArray = findBooksByAuthorId($id);
+	
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang='en'>
 	<head>
@@ -5,32 +33,6 @@
 		<title>Author</title>
 	</head>
 	<body>
-		        <?php
-            
-            include_once('common/setup.php');
-            include_once('common/database.php');
-            
-            if(!empty($_GET['id'])) {
-                $id = $_GET['id'];
-            } else {
-                http_response_code(400);
-                //echo "Missing author ID.";
-                exit("Missing author ID.");
-            }
-            
-            $authorArray = findAuthorById($id);
-            
-            if ($authorArray === null) {
-                http_response_code(404);
-                exit("This author does not exist.");
-            }
-            
-            
-            $booksArray = findBooksByAuthorId($id);
-            
-        ?>
-    
-		
 		<h1>Author</h1>
 		
 		<p>

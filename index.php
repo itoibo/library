@@ -1,3 +1,28 @@
+<?php
+	
+	include_once('common/setup.php');
+	include_once('common/database.php');
+	
+	if (!empty($_GET['page'])) {
+		$page = $_GET['page'];
+	} else {
+		$page = 1;
+	}
+	//echo $page;
+	
+	$total = countAllBooks();
+	
+	$nbrPages = ceil($total / 10);
+	
+	$offset = ($page - 1) * 10;
+	
+	$numBooks = 10;
+	
+	$booksArray = findNBooks($numBooks, $offset);
+	
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,30 +35,6 @@
             Home
         </a>
     </p>
-	
-    <?php
-		
-		include_once('common/setup.php');
-		include_once('common/database.php');
-		
-		if (!empty($_GET['page'])) {
-			$page = $_GET['page'];
-		} else {
-			$page = 1;
-		}
-		//echo $page;
-		
-		$total = countAllBooks();
-		
-		$nbrPages = ceil($total / 10);
-		
-		$offset = ($page - 1) * 10;
-		
-		$numBooks = 10;
-		
-		$booksArray = findNBooks($numBooks, $offset);
-		
-    ?>
     
     <h1>Authors and books</h1>
     

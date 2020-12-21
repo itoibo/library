@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <title>Author</title>
+</head>
+<body>
+<?php
+
+include_once('common/setup.php');
+include_once('common/database.php');
+
+?>
+
+
+<h1>Create an author</h1>
+
+
+</body>
+</html>
+    

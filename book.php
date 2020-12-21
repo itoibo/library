@@ -1,3 +1,26 @@
+<?php
+	
+	include_once('common/setup.php');
+	include_once('common/database.php');
+	
+	if(!empty($_GET['id'])) {
+		$id = $_GET['id'];
+	} else {
+		http_response_code(400);
+		//echo "Missing book ID.";
+		exit("Missing book ID.");
+	}
+	
+	$bookArray = findBookById($id);
+	
+	if ($bookArray === null) {
+		http_response_code(404);
+		echo "This book does not exist.";
+		exit;
+	}
+?>
+
+
 <!DOCTYPE html>
 <html lang='en'>
 	<head>
@@ -5,28 +28,6 @@
 		<title>Book</title>
 	</head>
 	<body>
-		<?php
-			
-			include_once('common/setup.php');
-			include_once('common/database.php');
-			
-			if(!empty($_GET['id'])) {
-                $id = $_GET['id'];
-            } else {
-                http_response_code(400);
-                //echo "Missing book ID.";
-                exit("Missing book ID.");
-            }
-			
-			$bookArray = findBookById($id);
-			
-			if ($bookArray === null) {
-                http_response_code(404);
-				echo "This book does not exist.";
-                exit;
-            }
-		?>
-		
 		<h1>Book</h1>
 		
 		<table border='1'>

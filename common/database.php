@@ -1,5 +1,21 @@
 <?php
 
+function saveAuthor(string $firstName, string $lastName): int
+{
+	global $connexionObject;
+    $queryObject = $connexionObject->prepare("
+		INSERT INTO
+			author
+			(first_name, last_name)
+		VALUES
+			('$firstName', '$lastName')
+		;
+	");
+    $queryObject->execute();
+	
+	return $connexionObject->lastInsertId();
+}
+
 function findBookById(int $id): ?array
 {
 	global $connexionObject;

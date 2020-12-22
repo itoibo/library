@@ -41,7 +41,9 @@ function findBookById(int $id): ?array
 			book.id = :id;
 		;
 	");
-
+	
+	//Do we want the ; here: book.id = :id; ?
+	
     $queryObject->execute([
 		':id' => $id
 	]);
@@ -95,6 +97,8 @@ function findAuthorByName(string $firstName, string $lastName): ?array
 			last_name = '$lastName'
     ");
     
+	//Why does this fail if I do $firstName, but works if I do '$firstName' ? Seems fine on the findAuthorById function without ' '.
+	
     $queryObject->execute();
     
     $resultsArray = $queryObject->fetchAll();

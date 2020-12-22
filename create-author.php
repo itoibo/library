@@ -17,19 +17,29 @@
 		'lastName' => $_POST['lastName'],
 		];
 		
+		//"$arrName[] =" is add to array.
+		//$errorsArray[] = "test";
+		//escape($formDataArray['firstName']);
+		//escape($formDataArray['lastName']);
+		//print_r(findAuthorByName($_POST['firstName'], $_POST['lastName']));
+		
+		
 		if (empty($formDataArray['firstName'])) {
-			$errorsArray[] = "First name should <strong>not</strong> be empty.";//"$arrName[] =" is add to array.
+			$errorsArray[] = "First name should <strong>not</strong> be empty.";
 		}
 		
 		if (empty($formDataArray['lastName'])) {
 			$errorsArray[] = "Last name should <strong>not</strong> be empty.";
 		}
 		
+		if(!empty(findAuthorByName($_POST['firstName'], $_POST['lastName']))) {
+			$errorsArray[] = "Author already exits.";
+		}
+		
 		if (empty($errorsArray)) {
 			$id = saveAuthor($formDataArray['firstName'], $formDataArray['lastName']);
 			$redirectUrl = "/author.php?id=$id";
 			header("Location: $redirectUrl");
-			//escape("The author has been successfully saved!");
 		}
 	}
 	
@@ -64,7 +74,7 @@
 						<label for="firstName">First name:</label>
 					</td>
 					<td>
-						<input type="text" id="firstName" name="firstName" value="<?php echo $formDataArray['firstName']; ?>" />
+						<input type="text" id="firstName" name="firstName" value="<?php escape($formDataArray['firstName']); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -72,7 +82,7 @@
 						<label for="lastName">Last name:</label>
 					</td>
 					<td>
-						<input type="text" id="lastName" name="lastName" value="<?php echo $formDataArray['lastName']; ?>"/>
+						<input type="text" id="lastName" name="lastName" value="<?php escape($formDataArray['lastName']); ?>"/>
 					</td>
 				</tr>
 				<tr>

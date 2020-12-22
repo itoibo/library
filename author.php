@@ -6,7 +6,6 @@
 		$id = $_GET['id'];
 	} else {
 		http_response_code(400);
-		//escape("Missing author ID.");
 		exit("Missing author ID.");
 	}
 	

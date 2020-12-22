@@ -2,19 +2,25 @@
 
 function saveAuthor(string $firstName, string $lastName): int
 {
-	global $connexionObject;
+    global $connexionObject;
+
     $queryObject = $connexionObject->prepare("
-		INSERT INTO
-			author
-			(first_name, last_name)
-		VALUES
-			('$firstName', '$lastName')
-		;
-	");
-    $queryObject->execute();
-	
-	return $connexionObject->lastInsertId();
+        INSERT INTO
+            author
+            (first_name, last_name)
+        VALUES
+            (:firstName, :lastName)
+        ;
+    ");
+
+    $queryObject->execute([
+        ':firstName' => $firstName,
+        ':lastName' => $lastName,
+    ]);
+
+    return $connexionObject->lastInsertId();
 }
+
 
 function findBookById(int $id): ?array
 {
@@ -32,11 +38,13 @@ function findBookById(int $id): ?array
 		LEFT JOIN
 			author ON author.id = book.author_id
 		WHERE
-			book.id = $id;
+			book.id = :id;
 		;
 	");
 
-    $queryObject->execute();
+    $queryObject->execute([
+		':id' => $id
+	]);
 
     $resultsArray = $queryObject->fetchAll();
 	
@@ -60,6 +68,31 @@ function findAuthorById(int $id): ?array
             author
         WHERE
             id = $id
+    ");
+    
+    $queryObject->execute();
+    
+    $resultsArray = $queryObject->fetchAll();
+    
+    if (empty($resultsArray)) {
+        return null;
+    }
+    
+    return $resultsArray[0];
+}
+
+function findAuthorByName(string $firstName, string $lastName): ?array
+{
+    global $connexionObject;
+    $queryObject = $connexionObject->prepare("
+        SELECT
+            *
+        FROM
+            author
+		WHERE
+			first_name = '$firstName'
+			AND
+			last_name = '$lastName'
     ");
     
     $queryObject->execute();

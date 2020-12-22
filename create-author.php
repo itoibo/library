@@ -32,8 +32,10 @@
 			$errorsArray[] = "Last name should <strong>not</strong> be empty.";
 		}
 		
-		if(!empty(findAuthorByName($_POST['firstName'], $_POST['lastName']))) {
-			$errorsArray[] = "Author already exits.";
+		if (empty($errorsArray)) {
+			if(!empty(findAuthorByName($_POST['firstName'], $_POST['lastName']))) {
+				$errorsArray[] = "Author already exits.";
+			}
 		}
 		
 		if (empty($errorsArray)) {

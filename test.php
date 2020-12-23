@@ -1,13 +1,14 @@
 <?php
 
-$numbers = [3, 5, 1, 8, 2, 7, 4];
+$sentence = "I am :firstName and I am :age years old.";
 
-function isAGreaterThanB(int $a, $b): bool
-{
-    return $a > $b;
+$placeholders = [
+    ':firstName' => 'Alice',
+    ':age' => 23
+];
+
+foreach ($placeholders as $key => $value) {
+    $sentence = str_replace($key, $value, $sentence);
 }
 
-usort($numbers, 'isAGreaterThanB');
-
-echo '<pre>';
-var_dump($numbers);
+echo $sentence;

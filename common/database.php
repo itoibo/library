@@ -1,5 +1,22 @@
 <?php
 
+function findAllAuthors(): array
+{
+    global $connexionObject;
+    $queryObject = $connexionObject->prepare("
+        SELECT
+            *
+        FROM
+            author
+        ;
+    ");
+
+    $queryObject->execute();
+    
+    return $queryObject->fetchAll();
+}
+
+
 function saveAuthor(string $firstName, string $lastName): int
 {
     global $connexionObject;
@@ -83,6 +100,7 @@ function findAuthorById(int $id): ?array
     return $resultsArray[0];
 }
 
+/*
 function findAuthorByName(string $firstName, string $lastName): ?array
 {
     global $connexionObject;
@@ -92,14 +110,15 @@ function findAuthorByName(string $firstName, string $lastName): ?array
         FROM
             author
 		WHERE
-			first_name = '$firstName'
+			first_name = :firstName
 			AND
-			last_name = '$lastName'
+			last_name = :lastName
     ");
     
-	//Why does this fail if I do $firstName, but works if I do '$firstName' ? Seems fine on the findAuthorById function without ' '.
-	
-    $queryObject->execute();
+    $queryObject->execute(
+		':firstName' => $firstName
+		
+	);
     
     $resultsArray = $queryObject->fetchAll();
     
@@ -110,7 +129,7 @@ function findAuthorByName(string $firstName, string $lastName): ?array
     return $resultsArray[0];
 }
 
-
+*/
 function findBooksByAuthorId(int $id): array
 {
     global $connexionObject;

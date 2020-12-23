@@ -1,5 +1,29 @@
 <?php
 
+
+function saveBook(string $title, string $description, int $idAuthor): int
+{
+    global $connexionObject;
+
+    $queryObject = $connexionObject->prepare("
+        INSERT INTO
+            book
+            (title, description, author_id)
+        VALUES
+            (:title, :description, :idAuthor)
+        ;
+    ");
+
+    $queryObject->execute([
+        ':title' => $title,
+        ':description' => $description,
+        ':idAuthor' => $idAuthor,
+    ]);
+
+    return $connexionObject->lastInsertId();
+}
+
+
 function findAllAuthors(): array
 {
     global $connexionObject;
@@ -100,7 +124,7 @@ function findAuthorById(int $id): ?array
     return $resultsArray[0];
 }
 
-/*
+
 function findAuthorByName(string $firstName, string $lastName): ?array
 {
     global $connexionObject;
@@ -115,10 +139,10 @@ function findAuthorByName(string $firstName, string $lastName): ?array
 			last_name = :lastName
     ");
     
-    $queryObject->execute(
-		':firstName' => $firstName
-		
-	);
+    $queryObject->execute([
+		':firstName' => $firstName,
+		':lastName' => $lastName		
+	]);
     
     $resultsArray = $queryObject->fetchAll();
     
@@ -129,7 +153,7 @@ function findAuthorByName(string $firstName, string $lastName): ?array
     return $resultsArray[0];
 }
 
-*/
+
 function findBooksByAuthorId(int $id): array
 {
     global $connexionObject;
@@ -158,8 +182,6 @@ function findBooksByAuthorId(int $id): array
 
     return $resultsArray;//Get all rows.
 }
-
-
 
 
 function countAllBooks(): string
@@ -203,7 +225,3 @@ function findNBooks(int $numBooks, int $offset): array
 	
 	return $resultsArray;
 }
-
-
-
-

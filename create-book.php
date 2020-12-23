@@ -7,6 +7,7 @@
 	$formDataArray = [
 		'title' => '',
 		'description' => '',
+		'idAuthor' => '',
 	];
 	
 	$errorsArray = [];
@@ -17,26 +18,19 @@
 		$formDataArray = [
 		'title' => $_POST['title'],
 		'description' => $_POST['description'],
+		'idAuthor' => $_POST['idAuthor'],
 		];
-		
-		//"$arrName[] =" is add to array.
-		//$errorsArray[] = "test";
-		//escape($formDataArray['firstName']);
-		//escape($formDataArray['lastName']);
-		//print_r(findAuthorByName($_POST['firstName'], $_POST['lastName']));
-		
 		
 		if (empty($formDataArray['title'])) {
 			$errorsArray[] = "Title should <strong>not</strong> be empty.";
 		}
 		
-		/*
 		if (empty($errorsArray)) {
-			$id = saveBook($formDataArray['title'], $formDataArray['description']);
+			var_dump($formDataArray);
+			$id = saveBook($formDataArray['title'], $formDataArray['description'], $formDataArray['idAuthor']);
 			$redirectUrl = "/book.php?id=$id";
 			header("Location: $redirectUrl");
 		}
-		*/
 	}
 	
 ?>
@@ -108,4 +102,3 @@
 		</form>
 	</body>
 </html>
-    

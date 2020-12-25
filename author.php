@@ -6,7 +6,6 @@
 		$id = $_GET['id'];
 	} else {
 		http_response_code(400);
-		//escape("Missing author ID.");
 		exit("Missing author ID.");
 	}
 	
@@ -39,7 +38,9 @@
             <br>
             <strong>Last name:</strong> <?php escape($authorArray['last_name']); ?>
         </p>
-		
+		<p>
+			<img style="max-width: 250px;" src="/var/author/<?php echo $authorArray['id']; ?>" alt="">
+		</p>
 		
 		<table border='1'>
 			<tr>
@@ -64,4 +65,3 @@
 
 	</body>
 </html>
-	

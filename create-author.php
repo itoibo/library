@@ -5,6 +5,7 @@
 	$formDataArray = [
 		'firstName' => '',
 		'lastName' => '',
+		'picture' => '',
 	];
 	
 	$errorsArray = [];
@@ -15,10 +16,22 @@
 		$formDataArray = [
 		'firstName' => $_POST['firstName'],
 		'lastName' => $_POST['lastName'],
+		'picture' => $_FILES['picture'],
 		];
 		
+		//echo '<pre>';
+        //var_dump($formDataArray);
+        //exit;
+		
+		//"$arrName[] =" is add to array.
+		//$errorsArray[] = "test";
+		//escape($formDataArray['firstName']);
+		//escape($formDataArray['lastName']);
+		//print_r(findAuthorByName($_POST['firstName'], $_POST['lastName']));
+		
+		
 		if (empty($formDataArray['firstName'])) {
-			$errorsArray[] = "First name should <strong>not</strong> be empty.";//"$arrName[] =" is add to array.
+			$errorsArray[] = "First name should <strong>not</strong> be empty.";
 		}
 		
 		if (empty($formDataArray['lastName'])) {
@@ -26,10 +39,18 @@
 		}
 		
 		if (empty($errorsArray)) {
+			if(!empty(findAuthorByName($_POST['firstName'], $_POST['lastName']))) {
+				$errorsArray[] = "Author already exits.";
+			}
+		}
+		
+		if (empty($errorsArray)) {
 			$id = saveAuthor($formDataArray['firstName'], $formDataArray['lastName']);
+			
+			rename($formDataArray['picture']['tmp_name'], "var/author/$id");
+			
 			$redirectUrl = "/author.php?id=$id";
 			header("Location: $redirectUrl");
-			//escape("The author has been successfully saved!");
 		}
 	}
 	
@@ -57,14 +78,14 @@
 			<?php } ?>
 		</ul>
 		
-		<form action="" method="POST">
+		<form action="" method="POST" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td>
 						<label for="firstName">First name:</label>
 					</td>
 					<td>
-						<input type="text" id="firstName" name="firstName" value="<?php echo $formDataArray['firstName']; ?>" />
+						<input type="text" id="firstName" name="firstName" value="<?php escape($formDataArray['firstName']); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -72,7 +93,15 @@
 						<label for="lastName">Last name:</label>
 					</td>
 					<td>
-						<input type="text" id="lastName" name="lastName" value="<?php echo $formDataArray['lastName']; ?>"/>
+						<input type="text" id="lastName" name="lastName" value="<?php escape($formDataArray['lastName']); ?>"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="picture">Picture:</label>
+					</td>
+					<td>
+						<input type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>
 					</td>
 				</tr>
 				<tr>

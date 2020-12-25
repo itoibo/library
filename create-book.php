@@ -25,6 +25,10 @@
 			$errorsArray[] = "Title should <strong>not</strong> be empty.";
 		}
 		
+		if (empty($formDataArray['idAuthor'])) {
+			$errorsArray[] = "You must select an author.";
+		}
+		
 		if (empty($errorsArray)) {
 			var_dump($formDataArray);
 			$id = saveBook($formDataArray['title'], $formDataArray['description'], $formDataArray['idAuthor']);
@@ -72,9 +76,7 @@
 						<label for="description">Description:</label>
 					</td>
 					<td>
-						<textarea rows="10" cols="100" id="description" name="description">
-							<?php escape($formDataArray['description']); ?>
-						</textarea>
+						<textarea rows="10" cols="100" id="description" name="description"><?php escape($formDataArray['description']); ?></textarea>
 					</td>
 				</tr>
 				
@@ -84,8 +86,9 @@
                     </td>
                     <td>
                         <select id="idAuthor" name="idAuthor">
+							<option value="">Choose an author</option>
 							<?php foreach ($authors as $author) { ?>
-								<option value="<?php echo $author['id'] ?>">
+								<option value="<?php echo $author['id'] ?>" <?php if ($author['id'] === $formDataArray['idAuthor']) { echo "selected"; } ?>>
 									<?php echo $author['first_name'] ?> <?php echo $author['last_name'] ?>
 								</option>
 							<?php } ?>

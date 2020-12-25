@@ -38,7 +38,9 @@
             <br>
             <strong>Last name:</strong> <?php escape($authorArray['last_name']); ?>
         </p>
-		
+		<p>
+			<img style="max-width: 250px;" src="/var/author/<?php echo $authorArray['id']; ?>" alt="">
+		</p>
 		
 		<table border='1'>
 			<tr>

@@ -5,6 +5,7 @@
 	$formDataArray = [
 		'firstName' => '',
 		'lastName' => '',
+		'picture' => '',
 	];
 	
 	$errorsArray = [];
@@ -15,7 +16,12 @@
 		$formDataArray = [
 		'firstName' => $_POST['firstName'],
 		'lastName' => $_POST['lastName'],
+		'picture' => $_FILES['picture'],
 		];
+		
+		//echo '<pre>';
+        //var_dump($formDataArray);
+        //exit;
 		
 		//"$arrName[] =" is add to array.
 		//$errorsArray[] = "test";
@@ -40,6 +46,9 @@
 		
 		if (empty($errorsArray)) {
 			$id = saveAuthor($formDataArray['firstName'], $formDataArray['lastName']);
+			
+			rename($formDataArray['picture']['tmp_name'], "var/author/$id");
+			
 			$redirectUrl = "/author.php?id=$id";
 			header("Location: $redirectUrl");
 		}
@@ -69,7 +78,7 @@
 			<?php } ?>
 		</ul>
 		
-		<form action="" method="POST">
+		<form action="" method="POST" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td>
@@ -85,6 +94,14 @@
 					</td>
 					<td>
 						<input type="text" id="lastName" name="lastName" value="<?php escape($formDataArray['lastName']); ?>"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="picture">Picture:</label>
+					</td>
+					<td>
+						<input type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>
 					</td>
 				</tr>
 				<tr>

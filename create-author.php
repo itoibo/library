@@ -24,11 +24,6 @@
         //exit;
 		
 		//"$arrName[] =" is add to array.
-		//$errorsArray[] = "test";
-		//escape($formDataArray['firstName']);
-		//escape($formDataArray['lastName']);
-		//print_r(findAuthorByName($_POST['firstName'], $_POST['lastName']));
-		
 		
 		if (empty($formDataArray['firstName'])) {
 			$errorsArray[] = "First name should <strong>not</strong> be empty.";
@@ -44,11 +39,16 @@
 			}
 		}
 		
+		$imageBytesMax = 1000000;
+		$imageBytes = $formDataArray['picture']['size'];
+		//echo $imageBytes;
+		if($imageBytes > $imageBytesMax) {
+			$errorsArray[] = "Image file size is ".($imageBytes/1000000)."Mb and is too large. Max size is ".($imageBytesMax/1000000)."Mb.";
+		}
+		
 		if (empty($errorsArray)) {
 			$id = saveAuthor($formDataArray['firstName'], $formDataArray['lastName']);
-			
-			rename($formDataArray['picture']['tmp_name'], "var/author/$id");
-			
+			processImage($formDataArray['picture'], $id);
 			$redirectUrl = "/author.php?id=$id";
 			header("Location: $redirectUrl");
 		}
@@ -98,7 +98,7 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="picture">Picture:</label>
+						<label for="picture">Picture (1mb max):</label>
 					</td>
 					<td>
 						<input type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>

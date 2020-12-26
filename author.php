@@ -39,8 +39,11 @@
             <strong>Last name:</strong> <?php escape($authorArray['last_name']); ?>
         </p>
 		<p>
-			<img src="/var/author/<?php echo $authorArray['id']; ?>" alt="<?php escape($authorArray['last_name']); ?>">
-		</p>
+            <?php $authorImage = getAuthorImage($authorArray['id']); ?>
+            <?php if (is_string($authorImage)) { ?>
+                <img src="<?php echo $authorImage; ?>" alt="<?php escape($authorArray['last_name']); ?>">
+            <?php } ?>
+        </p>
 		
 		<table border='1'>
 			<tr>

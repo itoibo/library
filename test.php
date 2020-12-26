@@ -1,6 +1,12 @@
 <?php
 
-//$content = file_get_contents('doc/database.sql');
-$content = file_get_contents('var/author/20');
+$filename = 'blabla.bla.jpg';
+$filename += 'yada';
 
-echo $content;
+
+//var_dump explode(".", [$filename]);
+//var_dump explode(".", $filename);
+//echo strrpos($filename, '.');
+//echo strpos($filename, '.');
+echo substr($filename, strrpos($filename, '.'));
+

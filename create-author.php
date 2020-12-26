@@ -48,7 +48,7 @@
 		
 		if (empty($errorsArray)) {
 			$id = saveAuthor($formDataArray['firstName'], $formDataArray['lastName']);
-			processImage($formDataArray['picture'], $id);
+			processImage($formDataArray['picture'], $formDataArray['firstName'], $formDataArray['lastName'], $id);
 			$redirectUrl = "/author.php?id=$id";
 			header("Location: $redirectUrl");
 		}

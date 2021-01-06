@@ -1,14 +1,29 @@
 <?php
-
+	
 	include_once('common/includes.php');
+	
+	if(!empty($_GET['id'])) {
+		$id = $_GET['id'];
+	} else {
+		http_response_code(400);
+		exit("Missing book ID.");
+	}
+	
+		$bookArray = findBookById($id);
+	
+	if ($bookArray === null) {
+		http_response_code(404);
+		escape("This book does not exist.");
+		exit;
+	}
 	
 	$authors = findAllAuthors();
 	
-	$formDataArray = [
-		'title' => '',
-		'description' => '',
-		'idAuthor' => '',
-	];
+    $formDataArray = [
+        'title' => $bookArray['title'],
+        'description' => $bookArray['description'],
+        'idAuthor' => $bookArray['author_id'],
+    ];
 	
 	$errorsArray = [];
 	
@@ -29,11 +44,11 @@
 			$errorsArray[] = "You must select an author.";
 		}
 		
-		if (empty($errorsArray)) {
-			$id = saveBook($formDataArray['title'], $formDataArray['description'], $formDataArray['idAuthor']);
-			$redirectUrl = "/book.php?id=$id";
-			header("Location: $redirectUrl");
-		}
+        if (empty($errorsArray)) {
+            updateBook($id, $formDataArray['title'], $formDataArray['description'], $formDataArray['idAuthor']);
+            $redirectUrl = "/book.php?id=$id";
+            header("Location: $redirectUrl");
+        }
 	}
 	
 ?>
@@ -45,10 +60,10 @@
 <html lang='en'>
 <head>
     <meta charset='utf-8' />
-    <title>Create a Book</title>
+    <title>Update a Book</title>
 </head>
 	<body>
-		<h1>Create a Book</h1>
+		<h1>Update a Book</h1>
 		
 		<ul>
 			<?php foreach ($errorsArray as $error) { ?>

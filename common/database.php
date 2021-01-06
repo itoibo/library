@@ -1,5 +1,50 @@
 <?php
 
+function updateAuthor(int $idAuthor, string $firstName, string $lastName): void
+{
+    global $connexionObject;
+
+    $queryObject = $connexionObject->prepare("
+        UPDATE
+            author
+        SET 
+            first_name = :firstName,
+            last_name = :lastName
+        WHERE
+            id = :idAuthor;
+    ");
+
+    $queryObject->execute([
+        ':firstName' => $firstName,
+        ':lastName' => $lastName,
+        ':idAuthor' => $idAuthor,
+    ]);
+}
+
+
+function updateBook(int $idBook, string $title, string $description, int $idAuthor): void
+{
+    global $connexionObject;
+
+    $queryObject = $connexionObject->prepare("
+        UPDATE
+            book
+        SET 
+            title = :title,
+            description = :description,
+            author_id = :idAuthor
+        WHERE
+            id = :idBook;
+    ");
+
+    $queryObject->execute([
+        ':title' => $title,
+        ':description' => $description,
+        ':idAuthor' => $idAuthor,
+        ':idBook' => $idBook,
+    ]);
+}
+
 
 function saveBook(string $title, string $description, int $idAuthor): int
 {

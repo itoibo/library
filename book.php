@@ -50,7 +50,11 @@
 			</tr>
 		</table>
 		<br>
-		<a href="/">See All Books</a>
+        <a href="/update-book.php?id=<?php echo $id; ?>">Update this book</a>
+        <br>
+        <a href="/delete.php?type=book&id=<?php echo $id; ?>">Delete this book</a>
+        <br>
+        <a href="/">See All Books</a>
 
 	</body>
 </html>

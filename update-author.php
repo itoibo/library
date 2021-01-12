@@ -100,6 +100,11 @@
 				</tr>
 			</table>
 		</form>
+		
+		<a href="/author.php?id=<?php echo $id; ?>">See this author</a>
+        <br>
+        <a href="/">See All Books and authors</a>
+		
 	</body>
 </html>
     

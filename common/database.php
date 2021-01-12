@@ -1,5 +1,38 @@
 <?php
 
+function deleteAuthorById(int $id): void
+{
+    global $connexionObject;
+    $queryObject = $connexionObject->prepare("
+        DELETE FROM 
+            author
+        WHERE 
+            id=:id
+        ;
+    ");
+
+    $queryObject->execute([
+        ':id' => $id
+    ]);
+}
+
+
+function deleteBookById(int $id): void
+{
+    global $connexionObject;
+    $queryObject = $connexionObject->prepare("
+        DELETE FROM 
+            book
+        WHERE 
+            id=:id
+        ;
+    ");
+
+    $queryObject->execute([
+        ':id' => $id
+    ]);
+}
+
 function updateAuthor(int $idAuthor, string $firstName, string $lastName): void
 {
     global $connexionObject;

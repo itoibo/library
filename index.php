@@ -65,8 +65,10 @@
                     <?php escape($bookArray['description']); ?>
                 </td>
 				<td>
-                    Coming soon
-                </td>
+					<a href="/delete.php?type=book&id=<?php escape($bookArray['id']); ?>">Delete book</a>
+					-
+					<a href="/update-book.php?id=<?php escape($bookArray['id']); ?>">Update this book</a>
+				</td>
             <tr>
         <?php } ?>
 		

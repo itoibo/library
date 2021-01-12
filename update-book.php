@@ -117,5 +117,10 @@
 				</tr>
 			</table>
 		</form>
+		
+		<a href="/book.php?id=<?php echo $id; ?>">See this book</a>
+        <br>
+        <a href="/">See All Books</a>
+		
 	</body>
 </html>

@@ -63,8 +63,13 @@
 				</tr>
 			<?php } ?>
 		</table>
+        
 		<br>
-		<a href="/">See All Authors</a>
-
+        <a href="/update-author.php?id=<?php echo $id; ?>">Update this author</a>
+        <br>
+        <a href="/delete.php?type=author&id=<?php echo $id; ?>">Delete this author</a>
+        <br>
+        <a href="/">See All Books and authors</a>
+		
 	</body>
 </html>

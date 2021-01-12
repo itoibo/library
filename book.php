@@ -52,10 +52,20 @@
 		<br>
         <a href="/update-book.php?id=<?php echo $id; ?>">Update this book</a>
         <br>
-        <a href="/delete.php?type=book&id=<?php echo $id; ?>">Delete this book</a>
+        <a id="delete" href="/delete.php?type=book&id=<?php echo $id; ?>">Delete this book</a>
         <br>
         <a href="/">See All Books</a>
-
+		
+		<script>
+			let deleteLink = document.getElementById('delete');
+			deleteLink.addEventListener('click', function(event) {
+				let confirmation = confirm("Are you sure you want to delete this?");
+				if (!confirmation) {
+					event.preventDefault();
+				}
+			});
+		</script>
+		
 	</body>
 </html>
 	

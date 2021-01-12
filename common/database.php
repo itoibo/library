@@ -33,6 +33,7 @@ function deleteBookById(int $id): void
     ]);
 }
 
+
 function updateAuthor(int $idAuthor, string $firstName, string $lastName): void
 {
     global $connexionObject;

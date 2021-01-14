@@ -21,10 +21,10 @@
 
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta charset='utf-8' />
-		<title>Book</title>
-	</head>
+	<?php 
+        $title = "Book";
+        include_once('template/head.php'); 
+    ?>
 	<body>
 		<h1>Book</h1>
 		
@@ -52,20 +52,9 @@
 		<br>
         <a href="/update-book.php?id=<?php echo $id; ?>">Update this book</a>
         <br>
-        <a id="delete" href="/delete.php?type=book&id=<?php echo $id; ?>">Delete this book</a>
+        <a class="delete" href="/delete.php?type=book&id=<?php echo $id; ?>">Delete this book</a>
         <br>
         <a href="/">See All Books</a>
-		
-		<script>
-			let deleteLink = document.getElementById('delete');
-			deleteLink.addEventListener('click', function(event) {
-				let confirmation = confirm("Are you sure you want to delete this?");
-				if (!confirmation) {
-					event.preventDefault();
-				}
-			});
-		</script>
-		
 	</body>
 </html>
 	

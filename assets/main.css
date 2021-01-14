@@ -1,0 +1,23 @@
+body {
+    background: LightSlateGray;
+	color: white;
+	font-family: Arial, sans-serif;
+}
+
+a {
+	color: brown;
+}
+
+a:hover {
+    color: black;
+}
+
+table {
+    border: solid 1px white;
+}
+
+th, td {
+    padding: 10px;
+	vertical-align: top;
+}
+

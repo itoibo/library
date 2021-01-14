@@ -61,10 +61,10 @@
 
 <!DOCTYPE html>
 <html lang='en'>
-<head>
-    <meta charset='utf-8' />
-    <title>Create an Author</title>
-</head>
+	<?php 
+        $title = "Add an Author";
+        include_once('template/head.php'); 
+    ?>
 	<body>
 		<h1>Create an author</h1>
 		

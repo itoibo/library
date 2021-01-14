@@ -24,10 +24,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>My web site</title>
-  </head>
+	<?php 
+        $title = "Library Home";
+        include_once('template/head.php'); 
+    ?>
   <body>
     <p>
 		<a href="/">
@@ -65,7 +65,7 @@
                     <?php escape($bookArray['description']); ?>
                 </td>
 				<td>
-					<a href="/delete.php?type=book&id=<?php escape($bookArray['id']); ?>">Delete book</a>
+					<a class="delete" href="/delete.php?type=book&id=<?php escape($bookArray['id']); ?>">Delete book</a>
 					-
 					<a href="/update-book.php?id=<?php escape($bookArray['id']); ?>">Update this book</a>
 				</td>
@@ -80,6 +80,11 @@
         <a href = "/?page=<?php escape($i); ?>"><?php escape($i); ?></a>
     <?php } ?>
 	
+	<br>
+    <br>
+    <a href="/create-book.php">Create a book</a>
+    <br>
+    <a href="/create-author.php">Create an author</a>
 	
 	<pre>
 		<?php /*print_r($booksArray);*/ ?>

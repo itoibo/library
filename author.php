@@ -26,10 +26,10 @@
 
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta charset='utf-8' />
-		<title>Author</title>
-	</head>
+	<?php 
+        $title = "Author";
+        include_once('template/head.php'); 
+    ?>
 	<body>
 		<h1>Author</h1>
 		
@@ -67,7 +67,7 @@
 		<br>
         <a href="/update-author.php?id=<?php echo $id; ?>">Update this author</a>
         <br>
-        <a href="/delete.php?type=author&id=<?php echo $id; ?>">Delete this author</a>
+        <a class="delete" href="/delete.php?type=author&id=<?php echo $id; ?>">Delete this author</a>
         <br>
         <a href="/">See All Books and authors</a>
 		

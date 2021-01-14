@@ -58,10 +58,10 @@
 
 <!DOCTYPE html>
 <html lang='en'>
-<head>
-    <meta charset='utf-8' />
-    <title>Update an Author</title>
-</head>
+	<?php 
+        $title = "Update an Author";
+        include_once('template/head.php'); 
+    ?>
 	<body>
 		<h1>Update an author</h1>
 		

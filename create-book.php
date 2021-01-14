@@ -43,10 +43,10 @@
 
 <!DOCTYPE html>
 <html lang='en'>
-<head>
-    <meta charset='utf-8' />
-    <title>Create a Book</title>
-</head>
+	<?php 
+        $title = "Add a Book";
+        include_once('template/head.php'); 
+    ?>
 	<body>
 		<h1>Create a Book</h1>
 		

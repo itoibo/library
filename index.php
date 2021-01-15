@@ -29,12 +29,6 @@
         include_once('template/head.php'); 
     ?>
   <body>
-    <p>
-		<a href="/">
-            Home
-        </a>
-    </p>
-    
     <h1>Authors and books</h1>
     
 	<table border="1">

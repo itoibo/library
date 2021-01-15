@@ -1,6 +1,5 @@
 <?php
-
-include_once('common/parameters.php');
-include_once('common/setup.php');
-include_once('common/database.php');
-include_once('common/tools.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/common/parameters.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/common/setup.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/common/database.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/common/tools.php');

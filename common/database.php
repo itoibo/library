@@ -116,7 +116,7 @@ function findAllAuthors(): array
 
     $queryObject->execute();
     
-    return $queryObject->fetchAll();
+    return $queryObject->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
@@ -194,7 +194,7 @@ function findAuthorById(int $id): ?array
     
     $queryObject->execute();
     
-    $resultsArray = $queryObject->fetchAll();
+	$resultsArray = $queryObject->fetchAll(PDO::FETCH_ASSOC);
     
     if (empty($resultsArray)) {
         return null;

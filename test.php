@@ -1,7 +1,6 @@
 <?php
 
-$filename = 'blabla.bla.jpg';
-$filename .= 'yada';
-echo substr($filename, strrpos($filename, '.'));
+$days = ["first" => "monday", "second" => "tuesday", "third" => "wednesday"];
 
-echo $_SERVER['SCRIPT_FILENAME'];
+echo "<pre>";
+print_r($days);

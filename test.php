@@ -1,6 +1,3 @@
 <?php
 
-$days = ["first" => "monday", "second" => "tuesday", "third" => "wednesday"];
-
-echo "<pre>";
-print_r($days);
+echo sha1("hello world");

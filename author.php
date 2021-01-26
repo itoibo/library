@@ -31,6 +31,7 @@
         include_once('template/head.php'); 
     ?>
 	<body>
+		<?php include_once($_SERVER['DOCUMENT_ROOT'].'/common/account.php'); ?>
 		<h1>Author</h1>
 		
 		<p>

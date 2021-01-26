@@ -48,6 +48,7 @@
         include_once('template/head.php'); 
     ?>
 	<body>
+		<?php include_once($_SERVER['DOCUMENT_ROOT'].'/common/account.php'); ?>
 		<h1>Create a Book</h1>
 		
 		<ul>

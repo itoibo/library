@@ -98,6 +98,11 @@ function findBookById(int $id): ?array
     return $resultsArray[0];//Get the first row.
 }
 
+
+
+/*
+//Good example of a join.
+
 function findBooksByAuthorId(int $id): array
 {
     global $connexionObject;
@@ -120,12 +125,40 @@ function findBooksByAuthorId(int $id): array
 
     $queryObject->execute();
 
-    $resultsArray = $queryObject->fetchAll();
+    $resultsArray = $queryObject->fetchAll(PDO::FETCH_ASSOC);
 
     //print_r($resultsArray);
 
     return $resultsArray;//Get all rows.
 }
+
+*/
+
+function findBooksByAuthorId(int $id): array
+{
+    global $connexionObject;
+    $queryObject = $connexionObject->prepare("
+        SELECT
+            book.id,
+            book.title,
+            book.description,
+            book.author_id
+        FROM
+            book
+        WHERE
+            book.author_id = :id;
+        ;
+    ");
+
+    $queryObject->execute([
+        ':id' => $id
+    ]);
+
+    $resultsArray = $queryObject->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultsArray;
+}
+
 
 function countAllBooks(): string
 {

@@ -2,7 +2,8 @@ key gAllAuthorsRequest;
 key gOneAuthorRequest;
 
 string API_URL = "https://library.bdx9.com/api";
-
+integer MAIN_DIALOG_CHANNEL = 4315487;
+integer AUTHOR_DIALOG_CHANNEL = 4315488;
 
 handleAllAuthorsResponse(integer statusCode, list headers, string body)
 {
@@ -11,7 +12,27 @@ handleAllAuthorsResponse(integer statusCode, list headers, string body)
         return;
     }
     
-    llSay(PUBLIC_CHANNEL, body);
+    list authorsAsJson = llJson2List(body);
+    string text = "Choose an author.\n";
+    list buttons = [];
+    integer i;
+    for (i = 0; i < llGetListLength(authorsAsJson); i++) {
+        string authorAsJson = llList2String(authorsAsJson, i);
+        integer id = (integer)llJsonGetValue(authorAsJson, ["id"]);
+        string firstName = llJsonGetValue(authorAsJson, ["first_name"]);
+        string lastName = llJsonGetValue(authorAsJson, ["last_name"]);
+
+        text += (string)id + ": " + firstName + " " + lastName + "\n";
+        buttons = buttons + [(string)id];
+    }
+
+    llSay(0, text);
+    llDialog(
+        llGetOwner(),
+        text,
+        buttons,
+        AUTHOR_DIALOG_CHANNEL
+    );
 }
 
 
@@ -26,42 +47,41 @@ handleOneAuthorResponse(integer statusCode, list headers, string body)
         return;
     }
 
-    llSay(PUBLIC_CHANNEL, body);
-}
+    integer id = (integer)llJsonGetValue(body, ["id"]);
+    string firstName = llJsonGetValue(body, ["first_name"]);
+    string lastName = llJsonGetValue(body, ["last_name"]);
 
+    llSay(PUBLIC_CHANNEL, firstName + " " + lastName);
+
+    list booksAsJson = llJson2List(llJsonGetValue(body, ["books"]));
+    llSay(PUBLIC_CHANNEL, "Books of this author:");
+    integer i;
+    for (i = 0; i < llGetListLength(booksAsJson); i++) {
+        string booksAsJson = llList2String(booksAsJson, i);
+        llSay(PUBLIC_CHANNEL, llJsonGetValue(booksAsJson, ["title"]));
+    }
+}
 
 
 default
 {
     state_entry()
     {
-        llListen(PUBLIC_CHANNEL, "", llGetOwner(), "");
+        llListen(MAIN_DIALOG_CHANNEL, "", llGetOwner(), "");
+        llListen(AUTHOR_DIALOG_CHANNEL, "", llGetOwner(), "");
     }
 
     listen(integer channel, string name, key id, string message)
     {
-        list messageParts = llParseString2List(message, [" "], []);
-
-        string filter = llList2String(messageParts, 0);
-        if ("endpoint" != filter) {
-            return;
-        }
-
-        string endpoint = llList2String(messageParts, 1);
-
-        if ("all-authors" == endpoint) {
-            llOwnerSay("we retrive all authors");
-            gAllAuthorsRequest = llHTTPRequest(API_URL + "/authors.php", [HTTP_METHOD, "GET"], "");
-        }
-
-        if ("one-author" == endpoint) {
-            llOwnerSay("we retrive one author");
-            if (3 != llGetListLength(messageParts)) {
-                llSay(PUBLIC_CHANNEL, "You have to provide an id.");
+        if (MAIN_DIALOG_CHANNEL == channel) {
+            if ("List Authors" == message) {
+                gAllAuthorsRequest = llHTTPRequest(API_URL + "/authors.php", [HTTP_METHOD, "GET"], "");
                 return;
             }
-            integer id = llList2Integer(messageParts, 2);
-            gOneAuthorRequest = llHTTPRequest(API_URL + "/authors.php?id=" + (string)id, [HTTP_METHOD, "GET"], "");
+        }
+
+        if (AUTHOR_DIALOG_CHANNEL == channel) {
+            gOneAuthorRequest = llHTTPRequest(API_URL + "/authors.php?id="+message, [HTTP_METHOD, "GET"], "");
         }
     }
     
@@ -79,5 +99,16 @@ default
             handleOneAuthorResponse(statusCode, headers, body);
         }
         
+    }
+
+    touch_start(integer number)
+    {
+        key agent = llDetectedKey(0);
+        llDialog(
+            agent,
+            "What do you want to do?",
+            ["List Authors", "Create Author"],
+            MAIN_DIALOG_CHANNEL
+        );
     }
 }

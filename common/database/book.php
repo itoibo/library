@@ -136,7 +136,7 @@ function countAllBooks(): string
     return $countResultsArray[0]['COUNT(*)'];
 }
 
-function findNBooks(int $numBooks, int $offset): array
+function findNBooksWithAuthors(int $numBooks, int $offset): array
 {
     global $connexionObject;
     $queryObject = $connexionObject->prepare("

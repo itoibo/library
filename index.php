@@ -17,7 +17,7 @@
 	
 	$numBooks = 10;
 	
-	$booksArray = findNBooks($numBooks, $offset);
+	$booksArray = findNBooksWithAuthors($numBooks, $offset);
 	
 ?>
 

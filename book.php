@@ -1,6 +1,6 @@
 <?php
 	
-	include_once('common/includes.php');
+	include_once($_SERVER['DOCUMENT_ROOT'].'/common/includes.php');
 	
 	if(!empty($_GET['id'])) {
 		$id = $_GET['id'];
@@ -23,7 +23,7 @@
 <html lang='en'>
 	<?php 
         $title = "Book";
-        include_once('template/head.php'); 
+        include_once($_SERVER['DOCUMENT_ROOT'].'/template/head.php');
     ?>
 	<body>
 		<?php include_once($_SERVER['DOCUMENT_ROOT'].'/common/account.php'); ?>

@@ -1,6 +1,6 @@
 <?php
 
-include_once('common/includes.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/common/includes.php');
 
 $formDataArray = [
     'username' => '',
@@ -42,7 +42,7 @@ if($method === 'POST') {
 <html lang='en'>
 	<?php
 		$title = "Login";
-		include_once('template/head.php');
+		include_once($_SERVER['DOCUMENT_ROOT'].'/template/head.php');
 	?>
 	<body>
 		<h1>Login</h1>

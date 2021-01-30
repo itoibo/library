@@ -1,6 +1,6 @@
 <?php
 
-	include_once('common/includes.php');
+	include_once($_SERVER['DOCUMENT_ROOT'].'/common/includes.php');
 	
 	$authors = findAllAuthors();
 	
@@ -45,7 +45,7 @@
 <html lang='en'>
 	<?php 
         $title = "Add a Book";
-        include_once('template/head.php'); 
+        include_once($_SERVER['DOCUMENT_ROOT'].'/template/head.php');
     ?>
 	<body>
 		<?php include_once($_SERVER['DOCUMENT_ROOT'].'/common/account.php'); ?>
